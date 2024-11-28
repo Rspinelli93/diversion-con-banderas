@@ -4,8 +4,6 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 h1 {
@@ -38,25 +36,48 @@ img[alt="Nepal Flag"], img[alt="Switzerland Flag"], img[alt="Vatican City Flag"]
   max-height: 85px;
 }
 
-.animacion {
-  transform: scale(2.5, 2);
-  transition: transform 0.5s ease;
-  transform-style: flat; 
-  
+.ventana {
+  display: none;
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 15px;
+  z-index: 1000;
+  width: 30%;
+  height: 30%;
+  box-sizing: border-box;
+  text-align: center;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-.animacion > * {
-  transform: scale(1); 
-  transform-origin: center; 
+.div-cansado {
+  display: flex;
+  justify-content: space-around;
 }
 
-#countries-list .animacion ul{
-  transform: scale(0.5)
+.ventana img {
+  width: 150px;
 }
-#countries-list .animacion boton {
-  transform: scale(0.5)
+.ventana ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 5px;
 }
 
-#countries-list .animacion .bandera {
-  transform: scale(0.5)
+.botonEliminar {
+  width: 100px;
+  margin-left: 24px;
+  cursor: pointer;
+}
+
+.ventana ul li:first-child{
+  font-weight: bolder;
+  font-size:x-large;
 }
