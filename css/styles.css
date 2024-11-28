@@ -34,6 +34,29 @@ h1 {
   width: 110px;
 }
 
-img[alt="Nepal Flag"], img[alt="Switzerland Flag"], img[alt="Vatican City Flag"] {
-  max-height: 95px;
+img[alt="Nepal Flag"], img[alt="Switzerland Flag"], img[alt="Vatican City Flag"], img[alt="Belgium Flag"] {
+  max-height: 85px;
+}
+
+.animacion {
+  transform: scale(2.5, 2);
+  transition: transform 0.5s ease;
+  transform-style: flat; 
+  
+}
+
+.animacion > * {
+  transform: scale(1); 
+  transform-origin: center; 
+}
+
+#countries-list .animacion ul{
+  transform: scale(0.5)
+}
+#countries-list .animacion boton {
+  transform: scale(0.5)
+}
+
+#countries-list .animacion .bandera {
+  transform: scale(0.5)
 }

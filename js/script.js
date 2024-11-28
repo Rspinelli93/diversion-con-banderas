@@ -1,26 +1,3 @@
-/*
-
-Los paises se ordenarán en orden alfabético (recuerda el método sort).
-Recuerda que para ordenar no es lo mismo mayúsculas que minúsculas. 
-
-Si comparas que sea lo mismo... pasa los nombres a mayúsculas si te parece 
-más sencillo para la comparación.
-
-La información detallada incluye la bandera del país,
-la capital, la población y el lado de la carretera donde se circula. 
-Este flotante se quedará fijo y centrado hasta que se cierre.
-
-La aplicación está diseñada con un enfoque simple y utiliza
-funciones asíncronas para manejar las solicitudes a la API. 
-Recuerda que podrás usar fetch, Async/Await...
-
-Puedes manipular el HTML si lo necesitaras.
-
-Si necesitas añadir clases a un elemento mediante JS, 
-lo puedes hacer con elemento.classList.add('clase que quieres añadir') 
-y para eliminar elemento.classList.remove('clase que quieres añadir')
-
-*/
 
 const listaPaises = document.getElementById('countries-list')
 
@@ -33,7 +10,6 @@ const paises = async () => {
         throw new Error('No se ah podido cargar la api')
        }
     const data = await response.json()
-    console.log(data)
     return data
    } 
    catch(error) {
@@ -41,38 +17,78 @@ const paises = async () => {
    }
 }
 
-// --- FUNCION PARA ITERAR --- //
-
-
-
 // --- FUNCION NOMBRE + BANDERA --- //
-  const paisesBox = (data) => {
 
-    data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+const paisesBox = (data) => {
+
+  data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+   
+  data.forEach(element => {
     
-    data.forEach(element => {
-      listaPaises.innerHTML += `<li class="pais-caja">
-        <img src="${element.flags[0]}" class="bandera" alt="${element.name.common} Flag">
-        <div class="pais">${element.name.common}</div>
-        </li>
-      `;
-    });
-  };
+    const liPaises = document.createElement('li');
+     
+    const bandera = document.createElement('img');
+    bandera.src = element.flags[0];
+    bandera.className = 'bandera';
+    bandera.alt = `${element.name.common} Flag`;
   
 
+    const divPais = document.createElement('div');
+    divPais.className = 'pais';
+    divPais.textContent = element.name.common; 
 
-// --- FUNCION INFO --- //
+    
+    liPaises.appendChild(bandera);
+    liPaises.appendChild(divPais);
+  
+    listaPaises.appendChild(liPaises);
 
-const paisInfo = () => {
+    // -- Evento Agrandar cuadro -- //
 
+    bandera.addEventListener('click', () => {
+    
+      liPaises.classList.add('animacion');
+      divPais.remove()
+      
+      const boton = document.createElement('button')
+      boton.className = 'botonEliminar'
+      boton.innerText = 'Cerrar'
+
+      const ulInfo = document.createElement('ul')
+      ulInfo.className = 'listaInfo';
+
+      ulInfo.innerHTML = `
+        <li>Country: ${element.name.common}</li>
+        <li>Capital: ${element.capital[0]}</li>
+        <li>Population: ${element.population} hab.</li>
+        <li>Driving Side: ${element.car.side}</li>
+      `
+      liPaises.appendChild(ulInfo)
+      liPaises.appendChild(boton)
+
+      // -- Evento Achicar cuadro -- //
+      
+      boton.addEventListener('click', () => {
+        liPaises.appendChild(divPais);
+
+        liPaises.classList.remove('animacion');
+      
+        ulInfo.remove();
+        boton.remove();
+      })
+    });
+
+    
+  }) 
 }
-
-// --- FUNCION BOTON BORRAR --- //
-
 
 // --- FUNCION PRINCIPAL --- //
   
 paises()
   .then(data => {
     paisesBox(data);
-  });
+    console.log(data)
+    return data
+})
+
+// -------------------------------------------- //
